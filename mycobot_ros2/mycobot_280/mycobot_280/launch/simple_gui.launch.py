@@ -51,30 +51,30 @@ def generate_launch_description():
     robot_description = ParameterValue(Command(['xacro ', LaunchConfiguration('model')]),
                                        value_type=str)
 
-    robot_state_publisher_node = Node(
-        name="robot_state_publisher",
-        package="robot_state_publisher",
-        executable="robot_state_publisher",
-        parameters=[{'robot_description': robot_description}]
-    )
-    res.append(robot_state_publisher_node)
+    # robot_state_publisher_node = Node(
+    #     name="robot_state_publisher",
+    #     package="robot_state_publisher",
+    #     executable="robot_state_publisher",
+    #     parameters=[{'robot_description': robot_description}]
+    # )
+    # res.append(robot_state_publisher_node)
 
-    rviz_node = Node(
-        name="rviz2",
-        package="rviz2",
-        executable="rviz2",
-        output="screen",
-        arguments=['-d', LaunchConfiguration("rvizconfig")],
-    )
-    res.append(rviz_node)
+    # rviz_node = Node(
+    #     name="rviz2",
+    #     package="rviz2",
+    #     executable="rviz2",
+    #     output="screen",
+    #     arguments=['-d', LaunchConfiguration("rvizconfig")],
+    # )
+    # res.append(rviz_node)
 
-    follow_display_node = Node(
-        package="mycobot_280",
-        executable="follow_display",
-        name="follow_display",
-        output="screen"
-    )
-    res.append(follow_display_node)
+    # follow_display_node = Node(
+    #     package="mycobot_280",
+    #     executable="follow_display",
+    #     name="follow_display",
+    #     output="screen"
+    # )
+    # res.append(follow_display_node)
 
     mycobot_280_node = Node(
         name="simple_gui",

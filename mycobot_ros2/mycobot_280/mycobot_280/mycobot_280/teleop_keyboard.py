@@ -1,22 +1,10 @@
 from __future__ import print_function
+from pymycobot.mycobot import MyCobot
 import sys
 import termios
 import tty
 import time
 import os
-import pymycobot
-from packaging import version
-
-# min low version require
-MIN_REQUIRE_VERSION = '3.6.1'
-
-current_verison = pymycobot.__version__
-print('current pymycobot library version: {}'.format(current_verison))
-if version.parse(current_verison) < version.parse(MIN_REQUIRE_VERSION):
-    raise RuntimeError('The version of pymycobot library must be greater than {} or higher. The current version is {}. Please upgrade the library version.'.format(MIN_REQUIRE_VERSION, current_verison))
-else:
-    print('pymycobot library version meets the requirements!')
-    from pymycobot import MyCobot280
 
 msg = """\
 Mycobot Teleop Keyboard Controller
@@ -65,24 +53,17 @@ class Raw(object):
 
 
 def teleop_keyboard():
-    # 优先检查 ttyACM 端口
-    robot_acm = os.popen("ls /dev/ttyACM* 2>/dev/null").readline().strip()
-    # 然后检查 ttyUSB 端口
-    robot_usb = os.popen("ls /dev/ttyUSB* 2>/dev/null").readline().strip()
-
-    if robot_acm:       # 优先使用 ttyACM 设备
-        port = robot_acm
-        print("使用 ttyACM 端口:", robot_acm)
-    elif robot_usb:     # 如果 ttyACM 不存在，则使用 ttyUSB
-        port = robot_usb
-        print("使用 ttyUSB 端口:", robot_usb)
+    robot_m5 = os.popen("ls /dev/ttyUSB*").readline()[:-1]
+    robot_wio = os.popen("ls /dev/ttyACM*").readline()[:-1]
+    if robot_wio:
+        port = robot_wio
     else:
-        raise Exception("未检测到任何串口设备")
-
+        port = robot_m5
+        
     print("port:%s, baud:%d" % (port, 115200))
-    mc = MyCobot280(port, 115200)
+    mc = MyCobot(port, 115200)
     time.sleep(0.05)
-    mc.set_fresh_mode(1)
+    mc.set_free_mode(1)
     time.sleep(0.05)
 
     model = 0

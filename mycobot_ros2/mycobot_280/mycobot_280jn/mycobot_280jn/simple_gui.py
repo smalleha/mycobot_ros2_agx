@@ -1,27 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import tkinter as tk
+from pymycobot.mycobot import MyCobot
 import time
-import pymycobot
-from packaging import version
-
-# min low version require
-MIN_REQUIRE_VERSION = '3.6.1'
-
-current_verison = pymycobot.__version__
-print('current pymycobot library version: {}'.format(current_verison))
-if version.parse(current_verison) < version.parse(MIN_REQUIRE_VERSION):
-    raise RuntimeError('The version of pymycobot library must be greater than {} or higher. The current version is {}. Please upgrade the library version.'.format(MIN_REQUIRE_VERSION, current_verison))
-else:
-    print('pymycobot library version meets the requirements!')
-    from pymycobot import MyCobot280
 
 
 class Window: 
     def __init__(self, handle):
-        self.mc = MyCobot280("/dev/ttyTHS1", 1000000)
+        self.mc = MyCobot("/dev/ttyTHS1", 1000000)
         time.sleep(0.05)
-        self.mc.set_fresh_mode(1)
+        self.mc.set_free_mode(1)
         time.sleep(0.05)
         
         self.win = handle
@@ -407,14 +395,14 @@ class Window:
         t = time.time()
         while time.time() - t < 2:
             self.res = self.mc.get_coords()
-            if self.res != [] or self.res is not None:
+            if self.res != []:
                 break
             time.sleep(0.1)
 
         t = time.time()
         while time.time() - t < 2:
             self.angles = self.mc.get_angles()
-            if self.angles != [] or self.angles is not None:
+            if self.angles != []:
                 break
             time.sleep(0.1)
         
