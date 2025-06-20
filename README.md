@@ -15,7 +15,7 @@ pymycobot 版本 3.3.4
 ```
 $ cd ~/limo_ros2_ws/src
 $ rm -rf mycobot_ros2/
-$ git clone https://github.com/smalleha/mycobot_ros2.git
+$ git clone https://github.com/smalleha/mycobot_ros2_agx.git
 $ cd ~/limo_ros2_ws
 $ colcon build
 $ source ~/limo_ros2_ws/install/setup.bash
